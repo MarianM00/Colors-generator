@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Color Scheme Generator</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .wrapper > div {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-weight: bold;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .button-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            position: absolute;
+            bottom: 1rem;
+            width: 100%;
+        }
+
+        #generate {
+            background-color: black;
+            color: white;
+            padding: .6rem 2rem;
+            margin: auto 1rem;
+            border: none;
+            text-transform: uppercase;
+            font-size: 1rem;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        #generate:hover {
+            opacity: .9;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div id="c1"></div>
+    <div id="c2"></div>
+    <div id="c3"></div>
+    <div id="c4"></div>
+</div>
+
+<div class="button-wrapper">
+    <button id="generate">generate color scheme</button>
+</div>
+<script src="node_modules/color-scheme/lib/color-scheme.js"></script>
+<script>
+    /**
+     * Generate random number between 0 and 359
+     * @return {number}
+     */
+    const randomNumber = () => {
+        return Math.floor(Math.random() * 360)
+    };
+    /**
+     * Generate and display 4 matching colors
+     */
+    const generateColors = () => {
+        // Init Color Scheme lib
+        const scheme = new ColorScheme;
+        scheme
+            .from_hue(randomNumber())
+            .scheme('triade')
+            .distance(Math.random())
+            .variation('pastel');
+        // Generate color scheme
+        const colors = scheme.colors();
+
+        // Pick 4 colors from the color scheme and display them
+        for (let i = 0; i < 4; i++) {
+            const el = document.getElementById(`c${i + 1}`);
+            const color = `#${colors[i * 2]}`;
+            el.style.backgroundColor = color;
+            el.innerText = color
+        }
+    };
+
+    // Regenerate color scheme on button click
+    const generateButton = document.getElementById('generate');
+    generateButton.addEventListener('click', generateColors);
+
+    // Init first color scheme generation
+    generateColors()
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "newapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "\"Marin Marian\"",
+  "license": "ISC",
+  "dependencies": {
+    "color-scheme": "^1.0.1"
+  }
+}
